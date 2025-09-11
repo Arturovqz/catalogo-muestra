@@ -1,91 +1,96 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tienda de Abarrotes</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    /* Encabezado con degradado */
-    header {
-      background: linear-gradient(135deg, #198754, #28a745);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-    /* Estilo de tarjetas */
-    .card {
-      border: none;
-      border-radius: 15px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-    }
-    /* Botón de WhatsApp */
-    .btn-whatsapp {
-      background-color: #25d366;
-      border: none;
-      border-radius: 25px;
-      padding: 10px 20px;
-      font-weight: bold;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-whatsapp:hover {
-      background-color: #1ebe5b;
-    }
-    /* Footer */
-    footer {
-      background: #222;
-      font-size: 0.9rem;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Productos</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f9; }
+  header { background: #2c3e50; color: white; padding: 1.5rem; text-align: center; }
+  header h1 { margin: 0; font-size: 2rem; }
+  .catalogo { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; padding: 30px; }
+  .producto { position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; background: #fff; }
+  .producto:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+  .producto img { width: 100%; height: 220px; object-fit: cover; display: block; }
+  .info { padding: 15px; text-align: center; }
+  .info h3 { margin: 10px 0 5px; font-size: 1.1rem; color: #333; }
+  .info p { margin: 0; color: #666; font-size: 0.9rem; }
+  .precio { position: absolute; top: 10px; right: 10px; background: #e74c3c; color: #fff; font-weight: bold; padding: 6px 10px; border-radius: 8px; font-size: 0.9rem; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+</style>
 </head>
 <body>
-  <!-- Encabezado -->
-  <header class="text-white text-center p-4">
-    <h1 class="fw-bold">🛒 Tienda de Abarrotes "Doña María"</h1>
-    <p class="mb-0">¡Los mejores productos para tu hogar!</p>
-  </header>
 
-  <!-- Catálogo -->
-  <main class="container my-5">
-    <div class="row g-4">
-      <!-- Producto 1 -->
-      <div class="col-md-4">
-        <div class="card h-100 text-center">
-          <img src="arroz.jpg" class="card-img-top" alt="Arroz">
-          <div class="card-body">
-            <h5 class="card-title fw-bold">Arroz 1kg</h5>
-            <p class="text-success fs-5">$25 MXN</p>
-            <a href="https://wa.me/5215512345678?text=Quiero%20comprar%20Arroz%201kg" target="_blank" class="btn btn-whatsapp">
-              <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="20" alt="WhatsApp"> Pedir
-            </a>
-          </div>
-        </div>
-      </div>
+<header>
+  <h1>Catálogo de Productos</h1>
+</header>
 
-      <!-- Producto 2 -->
-      <div class="col-md-4">
-        <div class="card h-100 text-center">
-          <img src="azucar.jpg" class="card-img-top" alt="Azúcar">
-          <div class="card-body">
-            <h5 class="card-title fw-bold">Azúcar 1kg</h5>
-            <p class="text-success fs-5">$28 MXN</p>
-            <a href="https://wa.me/5215512345678?text=Quiero%20comprar%20Azúcar%201kg" target="_blank" class="btn btn-whatsapp">
-              <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="20" alt="WhatsApp"> Pedir
-            </a>
-          </div>
-        </div>
-      </div>
+<section class="catalogo">
+
+  <div class="producto">
+    <img src="img/taza.jpeg" alt="Taza">
+    <div class="precio">$90 MXN</div>
+    <div class="info">
+      <h3>Taza</h3>
+      <p>Taza de cerámica personalizada.</p>
     </div>
-  </main>
+  </div>
 
-  <!-- Footer -->
-  <footer class="text-white text-center p-4">
-    <p class="mb-1">📍 Calle Principal #123, Ciudad</p>
-    <p class="mb-0">📞 55-1234-5678</p>
-  </footer>
+  <div class="producto">
+    <img src="img/calendario.jpg" alt="Calendario">
+    <div class="precio">$90 MXN</div>
+    <div class="info">
+      <h3>Calendario</h3>
+      <p>Calendario de escritorio 2025.</p>
+    </div>
+  </div>
+
+  <div class="producto">
+    <img src="img/bolsa.jpeg" alt="Bolsa">
+    <div class="precio">$200 MXN</div>
+    <div class="info">
+      <h3>Bolsa</h3>
+      <p>Bolsa reutilizable y resistente.</p>
+    </div>
+  </div>
+
+  <div class="producto">
+    <img src="img/playera.jpg" alt="Playera">
+    <div class="precio">$200 MXN</div>
+    <div class="info">
+      <h3>Playera</h3>
+      <p>Playera de algodón en varias tallas.</p>
+    </div>
+  </div>
+
+  <div class="producto">
+    <img src="img/sudadera.jpg" alt="Sudadera">
+    <div class="precio">$450 MXN</div>
+    <div class="info">
+      <h3>Sudadera</h3>
+      <p>Sudadera cómoda para el frío.</p>
+    </div>
+  </div>
+
+  <div class="producto">
+    <img src="img/polo.jpg" alt="Polo">
+    <div class="precio">$280 MXN</div>
+    <div class="info">
+      <h3>Polo</h3>
+      <p>Polo clásico cómodo.</p>
+    </div>
+  </div>
+
+  <div class="producto">
+    <img src="img/polo_manga_larga.jpg" alt="Polo manga larga">
+    <div class="precio">$320 MXN</div>
+    <div class="info">
+      <h3>Polo manga larga</h3>
+      <p>Polo elegante y cómodo de manga larga.</p>
+    </div>
+  </div>
+
+</section>
+
 </body>
 </html>
+

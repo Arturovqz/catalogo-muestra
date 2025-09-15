@@ -1,228 +1,956 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Artículos Personalizados</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body { background: #f8f9fa; }
-    header { background: linear-gradient(90deg, #30D6E6, #2772CC); box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-    .card { border: none; border-radius: 15px; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
-    footer { background: linear-gradient(90deg, #30D6E6, #2772CC); }
-    footer p { margin: 0; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creando - Catálogo de Artículos Personalizados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css" rel="stylesheet">
+    <style>
+        /* Design System con Colores Pastel Detallados */
+        :root {
+            /* Colores Pastel Principales */
+            --bg-primary: #fef7ff; /* Rosa pastel muy suave */
+            --bg-secondary: #f0f9ff; /* Azul pastel muy suave */
+            --bg-tertiary: #f0fdf4; /* Verde pastel muy suave */
+            --bg-accent: #fffbeb; /* Amarillo pastel muy suave */
+            
+            /* Colores de Texto con Contraste Suave */
+            --text-primary: #374151; /* Gris oscuro suave */
+            --text-secondary: #6b7280; /* Gris medio */
+            --text-light: #9ca3af; /* Gris claro */
+            --text-accent: #7c3aed; /* Púrpura suave */
+            
+            /* Colores Interactivos Pastel */
+            --interactive-primary: #a855f7; /* Púrpura pastel */
+            --interactive-secondary: #06b6d4; /* Cyan pastel */
+            --interactive-success: #10b981; /* Verde pastel */
+            --interactive-warning: #f59e0b; /* Amarillo pastel */
+            
+            /* Colores de Hover más Intensos */
+            --hover-primary: #9333ea;
+            --hover-secondary: #0891b2;
+            --hover-success: #059669;
+            
+            /* Bordes y Sombras Pastel */
+            --border-light: #e5e7eb;
+            --border-medium: #d1d5db;
+            --shadow-soft: rgba(168, 85, 247, 0.1);
+            --shadow-medium: rgba(168, 85, 247, 0.15);
+            
+            /* Gradientes Pastel Suaves */
+            --gradient-primary: linear-gradient(135deg, #fef7ff 0%, #f0f9ff 100%);
+            --gradient-secondary: linear-gradient(135deg, #f0fdf4 0%, #fffbeb 100%);
+            --gradient-accent: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: var(--gradient-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Typography Scale Mejorada */
+        .hero-large {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .heading-1 {
+            font-size: 36px;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .heading-3 {
+            font-size: 22px;
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--text-accent);
+            margin-bottom: 12px;
+        }
+
+        .body-large {
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        /* Botones con Estilo Pastel Mejorado */
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 18px 32px;
+            min-width: 200px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px var(--shadow-soft);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--shadow-medium);
+        }
+
+        .btn-secondary {
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--interactive-primary);
+            border: 2px solid var(--interactive-primary);
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            background: var(--interactive-primary);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--shadow-soft);
+        }
+
+        /* Container System */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Grid Layouts */
+        .grid-two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .grid-product-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin: 80px 0;
+        }
+
+        /* Navegación con Estilo Pastel */
+        .navigation-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(168, 85, 247, 0.08);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navigation-logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+
+        .navigation-menu {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navigation-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 12px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navigation-link:hover {
+            color: var(--interactive-primary);
+        }
+
+        .navigation-link::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-accent);
+            transition: width 0.3s ease;
+        }
+
+        .navigation-link:hover::after {
+            width: 100%;
+        }
+
+        .navigation-utilities {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Hero Section con Fondo Gradiente */
+        .hero-section {
+            background: var(--gradient-primary);
+            padding: 140px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-description {
+            font-size: 20px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        /* Product Cards con Estilo Pastel */
+        .product-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.08);
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.15);
+        }
+
+        .product-card-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            margin-bottom: 0;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-card-image {
+            transform: scale(1.05);
+        }
+
+        .product-card-content {
+            padding: 30px;
+            background: linear-gradient(135deg, #fefffe 0%, #f8fafc 100%);
+        }
+
+        .product-card-title {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .product-card-description {
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+        }
+
+        /* Secciones con Fondos Pastel */
+        .catalog-section {
+            background: var(--gradient-secondary);
+            padding: 140px 0;
+            position: relative;
+        }
+
+        .catalog-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 100px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about-section {
+            background: white;
+            padding: 140px 0;
+        }
+
+        .about-image-element {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(168, 85, 247, 0.1);
+        }
+
+        .services-list {
+            margin-top: 40px;
+        }
+
+        .services-grid {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0 0;
+            display: grid;
+            gap: 16px;
+        }
+
+        .service-item {
+            padding: 16px 20px;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%);
+            border-radius: 12px;
+            border-left: 4px solid var(--interactive-primary);
+            font-size: 15px;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateX(5px);
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+        }
+
+        /* Contact Section con Estilo Especial */
+        .contact-section {
+            background: var(--gradient-primary);
+            padding: 140px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .contact-content {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .contact-button {
+            min-width: 320px;
+            padding: 24px 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-radius: 16px;
+            font-size: 18px;
+        }
+
+        .button-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .button-title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .button-subtitle {
+            font-weight: 400;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 12px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Footer Mejorado */
+        .footer {
+            background: linear-gradient(135deg, #374151 0%, #4b5563 100%);
+            color: white;
+            padding: 80px 0 30px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand .navigation-logo {
+            color: white;
+            background: linear-gradient(135deg, #a855f7 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-brand p {
+            margin-top: 12px;
+            color: #d1d5db;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9ca3af;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 24px;
+            }
+            
+            .grid-two-column {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .hero-large {
+                font-size: 36px;
+            }
+            
+            .heading-1 {
+                font-size: 28px;
+            }
+            
+            .navigation-menu {
+                display: none;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+            
+            .contact-button {
+                min-width: 100%;
+            }
+            
+            .grid-product-showcase {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-section, .catalog-section, .about-section, .contact-section {
+                padding: 100px 0;
+            }
+        }
+
+        /* Iconos SVG */
+        .icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .icon-lg {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
 </head>
 <body>
-
-<!-- Header -->
-<header class="text-white text-center p-4">
-  <h1 class="fw-bold">Artículos Personalizados</h1>
-  <p class="mb-0">¡Al mejor precio!</p>
-</header>
-
-<!-- Buscador -->
-<div class="container my-4">
-  <div class="input-group">
-    <span class="input-group-text">🔍</span>
-    <input type="text" id="buscador" class="form-control" placeholder="Buscar productos: tazas, playeras, sudaderas, polos, negocios...">
-  </div>
-</div>
-
-<!-- Catálogo -->
-<main class="container my-5">
-  <div class="row g-4" id="catalogo">
-    <!-- Aquí se generarán los productos dinámicamente con JavaScript -->
-  </div>
-</main>
-
-<!-- Modal único -->
-<div class="modal fade" id="modalProducto" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalTitulo"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body text-center">
-        <img id="modalImagen" src="" class="img-fluid mb-3" alt="">
-        <p id="modalDescripcion" class="fs-5 text-danger"></p>
-        <a id="modalWhatsApp" href="#" target="_blank" class="btn btn-success">🛒 Cotizar por WhatsApp</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Footer -->
-<footer class="text-white text-center py-4">
-  <p>📍 Calle lirio mz101 Lt2 campestre potrero iztapalapa</p>
-  <p>📞 56-25-29-76-20</p>
-  <p>🌐 <a href="#" class="text-white text-decoration-none">Facebook</a> | 
-     <a href="#" class="text-white text-decoration-none">Instagram</a>
-  </p>
-</footer>
-
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
- 
-  const productos = [
-    { nombre: "Taza Personalizada", categoria: "tazas", precio: "$80 MXN", img: "taza.jpg", descripcion: "Taza de cerámica con tu diseño", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Taza%20Personalizada" },
-    { nombre: "Playera Personalizada", categoria: "playeras", precio: "$200 MXN", img: "playera.jpg", descripcion: "Playera de algodón con impresión personalizada", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Playera%20Personalizada" },
-    { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
-
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
- { nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
-{ nombre: "Polo manga larga", categoria: "playeras", precio: "$320 MXN", img: "polo manga larga.jpg", descripcion: "polo manga larga comodidad y covertura en tus brtazos ", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
-
- { nombre: "Sudadera Personalizada", categoria: "sudaderas", precio: "$300 MXN", img: "sudadera.jpg", descripcion: "Sudadera cómoda y con tu logo o diseño", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20una%20Sudadera%20Personalizada" },
-
-    { nombre: "Polo Personalizado", categoria: "polos", precio: "$250 MXN", img: "polo.jpg", descripcion: "Polo elegante con bordado o estampado", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20un%20Polo%20Personalizado" },
-    { nombre: "Artículos para Negocios", categoria: "negocios", precio: "$150 MXN en adelante", img: "negocio.jpg", descripcion: "Artículos corporativos personalizados", whatsapp: "https://wa.me/5625297620?text=Quiero%20comprar%20artículos%20para%20negocios" },
-    // ... agrega más productos hasta 100
-  ];
-
-  const catalogo = document.getElementById("catalogo");
-
-  // Generar tarjetas de productos
-  productos.forEach((prod, index) => {
-    const div = document.createElement("div");
-    div.className = "col-sm-6 col-md-4 producto";
-    div.setAttribute("data-categoria", prod.categoria);
-    div.innerHTML = `
-      <div class="card h-100 shadow-sm" data-index="${index}">
-        <img src="${prod.img}" class="card-img-top" alt="${prod.nombre}">
-        <div class="card-body text-center">
-          <h5 class="card-title fw-bold">${prod.nombre}</h5>
-          <p class="card-text text-success fs-5">${prod.precio}</p>
+    <!-- Header -->
+    <header class="navigation-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="navigation-logo">Creando</div>
+                <nav class="navigation-menu">
+                    <a href="#catalogo" class="navigation-link">Catálogo</a>
+                    <a href="#sobre-nosotros" class="navigation-link">Nosotros</a>
+                    <a href="#contacto" class="navigation-link">Contacto</a>
+                </nav>
+                <div class="navigation-utilities">
+                    <button class="btn-secondary" onclick="openWhatsApp()">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                        WhatsApp
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-    `;
-    catalogo.appendChild(div);
-  });
+    </header>
 
-  // Filtrado por categoría
-  document.getElementById("buscador").addEventListener("keyup", function() {
-    let filtro = this.value.toLowerCase();
-    document.querySelectorAll(".producto").forEach(producto => {
-      let categoria = producto.getAttribute("data-categoria");
-      if (categoria.includes(filtro) || filtro === "") {
-        producto.style.display = "block";
-      } else {
-        producto.style.display = "none";
-      }
-    });
-  });
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-large">Artículos Personalizados de Calidad Excepcional</h1>
+                <p class="hero-description">
+                    En Creando nos especializamos en la creación de artículos personalizados, 
+                    uniformes para empresas y productos únicos para emprendedores y negocios. 
+                    Calidad profesional, diseños exclusivos.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn-primary" onclick="openWhatsApp()">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                        Solicitar Cotización
+                    </button>
+                    <a href="#catalogo" class="btn-secondary">Ver Catálogo</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  // Modal dinámico
-  const modal = new bootstrap.Modal(document.getElementById('modalProducto'));
-  document.addEventListener("click", function(e) {
-    if(e.target.closest(".card")) {
-      const index = e.target.closest(".card").getAttribute("data-index");
-      const prod = productos[index];
-      document.getElementById("modalTitulo").textContent = prod.nombre;
-      document.getElementById("modalImagen").src = prod.img;
-      document.getElementById("modalImagen").alt = prod.nombre;
-      document.getElementById("modalDescripcion").textContent = prod.descripcion;
-      document.getElementById("modalWhatsApp").href = prod.whatsapp;
-      modal.show();
-    }
-  });
-</script>
+    <!-- Catalog Section -->
+    <section id="catalogo" class="catalog-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="heading-1">Nuestro Catálogo</h2>
+                <p class="body-large">
+                    Descubre nuestra amplia gama de productos personalizados para empresas y emprendedores
+                </p>
+            </div>
+            
+            <div class="grid-product-showcase">
+                <!-- Tazas Personalizadas -->
+                <div class="product-card">
+                    <img class="product-card-image" 
+                         src="https://images.unsplash.com/photo-1661855681748-6cdf63fb052e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwxfHxwZXJzb25hbGl6ZWQlMjBtZXJjaGFuZGlzZXxlbnwwfHx8fDE3NTc5MDU4MjB8MA&ixlib=rb-4.1.0&q=85" 
+                         alt="Tazas Personalizadas">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Tazas Personalizadas</h3>
+                        <p class="product-card-description">
+                            Tazas de cerámica premium con impresión de alta calidad. Perfectas para regalos corporativos o promocionales.
+                        </p>
+                        <button class="btn-primary" onclick="openWhatsAppProduct('Tazas Personalizadas')">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                            Cotizar por WhatsApp
+                        </button>
+                    </div>
+                </div>
 
+                <!-- Playeras Personalizadas -->
+                <div class="product-card">
+                    <img class="product-card-image" 
+                         src="https://images.unsplash.com/photo-1723233933448-b11308cb23a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwzfHxwZXJzb25hbGl6ZWQlMjBtZXJjaGFuZGlzZXxlbnwwfHx8fDE3NTc5MDU4MjB8MA&ixlib=rb-4.1.0&q=85" 
+                         alt="Playeras Personalizadas">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Playeras Personalizadas</h3>
+                        <p class="product-card-description">
+                            Playeras de algodón premium con impresión textil duradera. Ideales para uniformes empresariales y eventos.
+                        </p>
+                        <button class="btn-primary" onclick="openWhatsAppProduct('Playeras Personalizadas')">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                            Cotizar por WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sudaderas Corporativas -->
+                <div class="product-card">
+                    <img class="product-card-image" 
+                         src="https://images.unsplash.com/photo-1663017770157-5d850fa79054?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwyfHxwZXJzb25hbGl6ZWQlMjBtZXJjaGFuZGlzZXxlbnwwfHx8fDE3NTc5MDU4MjB8MA&ixlib=rb-4.1.0&q=85" 
+                         alt="Sudaderas Corporativas">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Sudaderas Corporativas</h3>
+                        <p class="product-card-description">
+                            Sudaderas de alta calidad con bordado o impresión. Perfectas para uniformes de invierno y merchandising.
+                        </p>
+                        <button class="btn-primary" onclick="openWhatsAppProduct('Sudaderas Corporativas')">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                            Cotizar por WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bolsas de Mandado Ecológicas -->
+                <div class="product-card">
+                    <img class="product-card-image" 
+                         src="https://images.unsplash.com/photo-1682517254473-174fc5acec2b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHw0fHxwZXJzb25hbGl6ZWQlMjBtZXJjaGFuZGlzZXxlbnwwfHx8fDE3NTc5MDU4MjB8MA&ixlib=rb-4.1.0&q=85" 
+                         alt="Bolsas de Mandado Ecológicas">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Bolsas de Mandado Ecológicas</h3>
+                        <p class="product-card-description">
+                            Bolsas reutilizables de lona resistente con impresión personalizada. Ideales para campañas ambientales.
+                        </p>
+                        <button class="btn-primary" onclick="openWhatsAppProduct('Bolsas de Mandado Ecológicas')">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                            Cotizar por WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Calendarios Corporativos -->
+                <div class="product-card">
+                    <img class="product-card-image" 
+                         src="https://images.unsplash.com/photo-1604907178402-1e7f5ea89006?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwxfHxjdXN0b20lMjBwcmludGluZ3xlbnwwfHx8fDE3NTc5MDU4MTR8MA&ixlib=rb-4.1.0&q=85" 
+                         alt="Calendarios Corporativos">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Calendarios Corporativos</h3>
+                        <p class="product-card-description">
+                            Calendarios de escritorio y pared con diseño personalizado. Excelentes para regalos de fin de año.
+                        </p>
+                        <button class="btn-primary" onclick="openWhatsAppProduct('Calendarios Corporativos')">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                            Cotizar por WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Packaging Personalizado -->
+                <div class="product-card">
+                    <img class="product-card-image" 
+                         src="https://images.unsplash.com/photo-1707216265113-9f57a25cfea4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHw0fHxjdXN0b20lMjBwcmludGluZ3xlbnwwfHx8fDE3NTc5MDU4MTR8MA&ixlib=rb-4.1.0&q=85" 
+                         alt="Packaging Personalizado">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Packaging Personalizado</h3>
+                        <p class="product-card-description">
+                            Empaque premium con diseño corporativo. Ideal para productos gourmet y artesanales.
+                        </p>
+                        <button class="btn-primary" onclick="openWhatsAppProduct('Packaging Personalizado')">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                            Cotizar por WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Artículos Promocionales Premium -->
+                <div class="product-card">
+                    <img class="product-card-image" 
+                         src="https://images.unsplash.com/photo-1744911491113-dd50a819472a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzZ8MHwxfHNlYXJjaHwyfHxicmFuZGVkJTIwaXRlbXN8ZW58MHx8fHwxNzU3OTA1ODI1fDA&ixlib=rb-4.1.0&q=85" 
+                         alt="Artículos Promocionales Premium">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Artículos Promocionales Premium</h3>
+                        <p class="product-card-description">
+                            Colección exclusiva de artículos promocionales para empresas que buscan destacar.
+                        </p>
+                        <button class="btn-primary" onclick="openWhatsAppProduct('Artículos Promocionales Premium')">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                            Cotizar por WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Merchandise para Eventos -->
+                <div class="product-card">
+                    <img class="product-card-image" 
+                         src="https://images.unsplash.com/photo-1578951484227-4ac9b9c09011?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzZ8MHwxfHNlYXJjaHwzfHxicmFuZGVkJTIwaXRlbXN8ZW58MHx8fHwxNzU3OTA1ODI1fDA&ixlib=rb-4.1.0&q=85" 
+                         alt="Merchandise para Eventos">
+                    <div class="product-card-content">
+                        <h3 class="product-card-title">Merchandise para Eventos</h3>
+                        <p class="product-card-description">
+                            Productos especializados para eventos, ferias y activaciones de marca.
+                        </p>
+                        <button class="btn-primary" onclick="openWhatsAppProduct('Merchandise para Eventos')">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                            </svg>
+                            Cotizar por WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="sobre-nosotros" class="about-section">
+        <div class="container">
+            <div class="grid-two-column">
+                <div class="about-content">
+                    <h2 class="heading-1">Sobre Creando</h2>
+                    <p class="body-large">
+                        Somos una empresa especializada en la creación de artículos personalizados y uniformes para empresas. 
+                        Nos dedicamos a proporcionar productos únicos y de calidad excepcional para emprendedores y negocios 
+                        que buscan destacar con identidad propia.
+                    </p>
+                    <div class="services-list">
+                        <h3 class="heading-3">Nuestros Servicios:</h3>
+                        <ul class="services-grid">
+                            <li class="service-item">Impresión textil de alta calidad</li>
+                            <li class="service-item">Bordado profesional</li>
+                            <li class="service-item">Diseño gráfico personalizado</li>
+                            <li class="service-item">Packaging corporativo</li>
+                            <li class="service-item">Artículos promocionales</li>
+                            <li class="service-item">Uniformes empresariales</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1744911491113-dd50a819472a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzZ8MHwxfHNlYXJjaHwyfHxicmFuZGVkJTIwaXRlbXN8ZW58MHx8fHwxNzU3OTA1ODI1fDA&ixlib=rb-4.1.0&q=85" 
+                         alt="Productos Creando" class="about-image-element">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contacto" class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="heading-1">Solicita tu Cotización</h2>
+                <p class="body-large">
+                    Estamos listos para ayudarte a crear productos únicos para tu empresa o negocio
+                </p>
+                <div class="contact-actions">
+                    <button class="btn-primary contact-button" onclick="openWhatsApp()">
+                        <svg class="icon-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                        <div class="button-content">
+                            <span class="button-title">WhatsApp</span>
+                            <span class="button-subtitle">Respuesta inmediata</span>
+                        </div>
+                    </button>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                            <span>+5625297620</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="navigation-logo">Creando</h3>
+                    <p>Artículos personalizados de calidad excepcional</p>
+                </div>
+                <div class="footer-contact">
+                    <button class="btn-secondary" onclick="openWhatsApp()">
+                        <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                        Contactar por WhatsApp
+                    </button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Creando. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Función para abrir WhatsApp con mensaje general
+        function openWhatsApp() {
+            const phone = "5625297620";
+            const message = "¡Hola! Me interesa conocer más sobre sus servicios de artículos personalizados.";
+            const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Función para abrir WhatsApp con mensaje específico del producto
+        function openWhatsAppProduct(productName) {
+            const phone = "5625297620";
+            const message = `¡Hola! Me interesa cotizar el producto: ${productName}. ¿Podrían proporcionarme más información y precios?`;
+            const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Smooth scrolling para los enlaces de navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animaciones al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Aplicar animaciones a las tarjetas de productos
+        document.addEventListener('DOMContentLoaded', () => {
+            const productCards = document.querySelectorAll('.product-card');
+            productCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                observer.observe(card);
+        });
+        });
+    </script>
 </body>
 </html>
